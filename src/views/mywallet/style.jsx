@@ -105,7 +105,8 @@ const InputsContainer = styled(Box)(({ theme }) => ({
 }));
 const InputWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
-  alignItems: "center",
+  flexDirection: "column",
+  alignItems: "flex-start",
 }));
 const CustomInput = styled(Input)(({ theme }) => ({
   fontSize: "1rem",
@@ -143,6 +144,32 @@ const CancelBtn = styled(Button)(({ theme }) => ({
   padding: "1rem",
   width: "12rem",
 }));
+const ViewOntext = styled(Typography)(({ theme }) => ({
+  color: theme.palette.primary.main,
+  cursor: "pointer",
+}));
+const SuccessAmount = styled(Typography)(({ theme }) => ({
+  color: theme.palette.primary.main,
+  fontSize: "2rem",
+  paddingLeft: "1rem",
+}));
+const DoneBtn = styled(Button)(({ theme }) => ({
+  textTransform: "none",
+  borderRadius: "3.125rem",
+  background: theme.palette.primary.main,
+  color: theme.palette.common.white,
+  fontSize: "1.2rem",
+  padding: "1rem",
+  width: "25rem",
+  "&:hover": {
+    background: theme.palette.primary.main,
+    opacity: 0.75,
+  },
+  "&:disabled": {
+    background: "#C5C5C5",
+    color: theme.palette.primary.contrastText,
+  },
+}));
 
 const SendSecondaryBtn = styled(CancelBtn)(({ theme }) => ({
   background: theme.palette.primary.main,
@@ -171,6 +198,9 @@ export const S = {
   PriceText,
   ButtonsContainer,
   CancelBtn,
+  DoneBtn,
   SendSecondaryBtn,
   SendFooter,
+  ViewOntext,
+  SuccessAmount,
 };

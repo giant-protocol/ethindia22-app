@@ -4,7 +4,7 @@ const initialState = {
   activeStep: 0,
   showContactsModal: false,
   showTokensModal: false,
-  showApproveModal: true,
+  showApproveModal: false,
   approveModalType: "approve",
   setActiveStep: () => {},
   setShowContactsModal: () => {},

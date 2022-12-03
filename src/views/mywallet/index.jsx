@@ -5,16 +5,21 @@ import SendIcon from "../../assets/icons/SendArrow.svg";
 import ReceiveIcon from "../../assets/icons/ReceiveArrow.svg";
 import InterchangeArrow from "../../assets/icons/InterchangeArrow.svg";
 import ContactIcon from "../../assets/icons/ContactsIcon.svg";
+import SuccessCheck from "../../assets/icons/SuccessCheck.svg";
 import { ASSETS_LIST } from "../../utils/constants";
 import { InputAdornment } from "@mui/material";
 import { useAppContext } from "../../context/app.context";
 const MyWallet = () => {
   const { setShowContactsModal, setShowTokensModal } = useAppContext();
-  const [cardState, setCardState] = useState("SEND");
+  const [cardState, setCardState] = useState("INIT");
+
+  const handleSend = () => {
+    setCardState("SUCCESS");
+  };
 
   return (
     <S.MyWalletWrapper>
-      <S.MainText>DPN: +01164504560</S.MainText>
+      {cardState !== "SUCCESS" && <S.MainText>DPN: +01164504560</S.MainText>}
 
       {cardState === "INIT" && (
         <S.BtnWrapper>
@@ -114,7 +119,65 @@ const MyWallet = () => {
             </S.PriceContainer>
             <S.ButtonsContainer>
               <S.CancelBtn>Cancel</S.CancelBtn>
-              <S.SendSecondaryBtn>Send</S.SendSecondaryBtn>
+              <S.SendSecondaryBtn onClick={() => handleSend()}>
+                Send
+              </S.SendSecondaryBtn>
+            </S.ButtonsContainer>
+          </S.SendFooter>
+        </S.SendContainer>
+      )}
+
+      {cardState === "SUCCESS" && (
+        <S.SendContainer>
+          <S.SendMoneyHeaderText>Send Money</S.SendMoneyHeaderText>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "1rem",
+            }}
+          >
+            <img src={SuccessCheck} alt="" />
+            <S.SendMoneyHeaderText sx={{ fontSize: "1.4rem !important" }}>
+              Successful
+            </S.SendMoneyHeaderText>
+          </Box>
+
+          <S.InputsContainer>
+            <S.InputWrapper>
+              Amount:
+              <S.SuccessAmount>$100 | 2.34 ETH</S.SuccessAmount>
+            </S.InputWrapper>
+            <S.InputWrapper>
+              To:
+              <S.CustomInput
+                type="text"
+                placeholder="Enter phone number or wallet address"
+                value="+919787370660"
+                disableUnderline={true}
+                disabled
+              />
+            </S.InputWrapper>
+            <S.InputWrapper>
+              Note:
+              <S.CustomInput
+                type="text"
+                placeholder="Optional Message"
+                disableUnderline={true}
+                value="Payment for the Mobile development, App Design & App Marketing"
+                minRows={2}
+                disabled
+              />
+            </S.InputWrapper>
+          </S.InputsContainer>
+
+          <S.SendFooter>
+            <S.PriceContainer>
+              <S.ViewOntext>View on Etherscan</S.ViewOntext>
+            </S.PriceContainer>
+            <S.ButtonsContainer>
+              <S.DoneBtn onClick={() => setCardState("INIT")}>Done</S.DoneBtn>
             </S.ButtonsContainer>
           </S.SendFooter>
         </S.SendContainer>

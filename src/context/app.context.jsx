@@ -1,14 +1,18 @@
 import { createContext, useContext, useReducer } from "react";
 
 const initialState = {
-  activeStep: 4,
+  activeStep: 0,
+  showContactsModal: false,
   setActiveStep: () => {},
+  setShowContactsModal: () => {},
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "SET_ACTIVE_STEP":
       return { ...state, activeStep: action.payload };
+    case "SET_SHOW_CONTACTS_MODAL":
+      return { ...state, showContactsModal: action.payload };
     default:
       return { ...state };
   }
@@ -21,6 +25,10 @@ function AppProvider(props) {
 
   state.setActiveStep = (data) => {
     dispatch({ type: "SET_ACTIVE_STEP", payload: data });
+  };
+
+  state.setShowContactsModal = (data) => {
+    dispatch({ type: "SET_SHOW_CONTACTS_MODAL", payload: data });
   };
 
   let data = { ...state };

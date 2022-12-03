@@ -56,15 +56,19 @@ const LogoContainer = styled(Box)(({ theme }) => ({
 
 const Nav = styled(Box)(({ theme }) => ({
   display: "flex",
-  gap: "2rem",
+  justifyContent: "flex-end",
   height: "100%",
+  width: "25%",
 }));
 
 const CustomLink = styled(NavLink)(({ theme }) => ({
   color: theme.palette.grey[200],
   textDecoration: "none",
   display: "flex",
-  alignItems: "center",
+  alignItems: "flex-end",
+  justifyContent: "center",
+  minWidth: "8rem",
+  paddingBottom: "1.2rem",
 }));
 
 const PushProtocolButton = styled(Button)(({ theme }) => ({

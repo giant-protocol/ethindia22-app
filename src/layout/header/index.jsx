@@ -21,11 +21,12 @@ const Header = () => {
         <S.Nav>
           {NAV_ITEMS.map((nav) => {
             return (
-              <S.CustomLink
+              <S.CustomLink 
                 to={nav.route}
                 style={({ isActive }) => {
                   return {
                     borderBottom: isActive ? "3px solid #00C853" : "",
+                    color: isActive ? "#00C853" : "inherit",
                   };
                 }}
               >

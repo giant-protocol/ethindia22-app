@@ -17,7 +17,6 @@ const ApproveModal = () => {
     setShowApproveModal(false);
   };
 
-  console.log(approveModalType, "approveModalType");
   return (
     <Modal
       open={showApproveModal}

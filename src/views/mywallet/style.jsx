@@ -176,6 +176,11 @@ const SendSecondaryBtn = styled(CancelBtn)(({ theme }) => ({
   color: theme.palette.common.white,
 }));
 
+const ContactsInput = styled(Input)(({ theme }) => ({
+  background: "#FCFCFC",
+  margin: "0 2rem",
+}));
+
 export const S = {
   MyWalletWrapper,
   MainText,
@@ -203,4 +208,5 @@ export const S = {
   SendFooter,
   ViewOntext,
   SuccessAmount,
+  ContactsInput,
 };

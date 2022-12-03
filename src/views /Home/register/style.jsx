@@ -25,7 +25,7 @@ const RegisterBody = styled(Box)(({ theme }) => ({
   height: "100%",
 }));
 
-const RegisterWrapper = styled(Box)(({ theme }) => ({
+const PhoneNumberWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -35,6 +35,38 @@ const RegisterWrapper = styled(Box)(({ theme }) => ({
   width: "65%",
   height: "100%",
   padding: "1rem",
+}));
+
+const OtpWrapper = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "space-between",
+  position: "relative",
+  margin: "auto",
+  width: "65%",
+  height: "100%",
+  padding: "1rem",
+}));
+
+const OtpSubText = styled(Typography)(({ theme }) => ({
+  fontWeight: "500",
+  fontSize: "1.5rem",
+  color: theme.palette.grey[700],
+}));
+
+const OtpSmallText = styled(Typography)(({ theme }) => ({
+  fontWeight: "400",
+  fontSize: "0.8rem",
+  color: theme.palette.grey[700],
+}));
+
+const ResendText = styled(Typography)(({ theme }) => ({
+  color: theme.palette.primary.main,
+  fontWeight: "400",
+  fontSize: "0.8rem",
+  textDecoration: "underline",
+  cursor:"pointer"
 }));
 
 const RegisterHeaderText = styled(Typography)(({ theme }) => ({
@@ -68,11 +100,15 @@ const MainButton = styled(Button)(({ theme }) => ({
 export const S = {
   RegisterContainer,
   RegisterHeader,
-  RegisterWrapper,
+  PhoneNumberWrapper,
   RegisterBody,
   RegisterSubHeader,
   RegistrationPeriodContainer,
   MainButton,
   RegisterHeaderText,
   RegisterFooter,
+  OtpWrapper,
+  OtpSubText,
+  OtpSmallText,
+  ResendText,
 };

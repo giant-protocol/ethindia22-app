@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import MainCard from "../../components/maincard";
 import { useAppContext } from "../../context/app.context";
 import GetStarted from "./getstarted";

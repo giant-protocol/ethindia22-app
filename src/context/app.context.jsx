@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer } from "react";
 
 const initialState = {
-  activeStep: 0,
+  activeStep: 4,
   setActiveStep: () => {},
 };
 

@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
+import { Link, NavLink } from "react-router-dom";
 
 const HeaderWrapper = styled(Box)(({ theme }) => ({
   background: theme.palette.common.white,
@@ -53,6 +54,19 @@ const LogoContainer = styled(Box)(({ theme }) => ({
   cursor: "pointer",
 }));
 
+const Nav = styled(Box)(({ theme }) => ({
+  display: "flex",
+  gap: "2rem",
+  height: "100%",
+}));
+
+const CustomLink = styled(NavLink)(({ theme }) => ({
+  color: theme.palette.grey[200],
+  textDecoration: "none",
+  display: "flex",
+  alignItems: "center",
+}));
+
 const PushProtocolButton = styled(Button)(({ theme }) => ({
   height: "2.5rem",
   background: "#ff96e840",
@@ -83,4 +97,6 @@ export const S = {
   LogoContainer,
   PushProtocolButton,
   PushProtocolUnSubButton,
+  Nav,
+  CustomLink,
 };

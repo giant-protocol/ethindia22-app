@@ -7,6 +7,7 @@ import { useWeb3React } from "@web3-react/core";
 import { Box } from "@mui/system";
 import MainLogo from "../../assets/MainLogo.svg";
 import PushProtocolIcon from "../../assets/PushProtocolIcon.svg";
+import { NAV_ITEMS } from "../../utils/constants";
 
 const Header = () => {
   const { account } = useWeb3React();
@@ -16,6 +17,23 @@ const Header = () => {
         <S.LogoContainer>
           <img src={MainLogo} alt="" />
         </S.LogoContainer>
+
+        <S.Nav>
+          {NAV_ITEMS.map((nav) => {
+            return (
+              <S.CustomLink
+                to={nav.route}
+                style={({ isActive }) => {
+                  return {
+                    borderBottom: isActive ? "3px solid #00C853" : "",
+                  };
+                }}
+              >
+                {nav.label}
+              </S.CustomLink>
+            );
+          })}
+        </S.Nav>
 
         <Box
           sx={{

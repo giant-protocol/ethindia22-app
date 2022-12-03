@@ -19,7 +19,7 @@ export const LightTheme = createTheme({
       primary: "#0B213E",
     },
     grey: {
-      200: "rgba(206, 214, 224, 0.25)",
+      200: "#C4C4C4",
       400: "#F3F5F8",
       600: "#414141",
       700: "#646464",

@@ -3,6 +3,10 @@ import { Box } from "@mui/system";
 import React from "react";
 import CustomOtpInput from "../../../components/otpinput";
 import CustomStepper from "../../../components/stepper";
+import AppStoreBadge from "../../../assets/AppStoreBadge.jpg";
+import PlayStoreBadge from "../../../assets/GooglePlayBadge.jpg";
+import DummyQrImg from "../../../assets/DummyQr.jpg";
+import PolygonIdIcon from "../../../assets/icons/PolygonIDIcon.svg";
 import { S } from "./style";
 
 const Register = () => {
@@ -95,6 +99,22 @@ const Register = () => {
               Verify number
             </S.MainButton>
           </S.OtpWrapper>
+        )}
+        {activeStep === 2 && (
+          <S.ClaimWrapper>
+            <S.ClaimNumberText>+1 9864256954</S.ClaimNumberText>
+            <S.QrWrapper>
+              <S.DummyQrImg src={DummyQrImg} alt="" />
+            </S.QrWrapper>
+            <S.ClaimText>
+              <S.PolygonIdImg src={PolygonIdIcon} alt="" />
+              Use your Polygon ID app to scan and claim your phone number
+            </S.ClaimText>
+            <S.AppContainer>
+              <S.BadgeImage src={AppStoreBadge} alt="" />
+              <S.BadgeImage src={PlayStoreBadge} alt="" />
+            </S.AppContainer>
+          </S.ClaimWrapper>
         )}
       </S.RegisterBody>
 

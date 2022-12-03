@@ -49,6 +49,19 @@ const OtpWrapper = styled(Box)(({ theme }) => ({
   padding: "1rem",
 }));
 
+const ClaimWrapper = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "1rem",
+  position: "relative",
+  margin: "auto",
+  width: "65%",
+  height: "100%",
+  padding: "1rem",
+}));
+
 const OtpSubText = styled(Typography)(({ theme }) => ({
   fontWeight: "500",
   fontSize: "1.5rem",
@@ -61,12 +74,53 @@ const OtpSmallText = styled(Typography)(({ theme }) => ({
   color: theme.palette.grey[700],
 }));
 
+const ClaimNumberText = styled(Typography)(({ theme }) => ({
+  fontWeight: "500",
+  fontSize: "1rem",
+  color: theme.palette.grey[700],
+}));
+
+const ClaimText = styled(Typography)(({ theme }) => ({
+  fontWeight: "400",
+  fontSize: "0.8rem",
+  color: theme.palette.grey[700],
+  display: "flex",
+  alignItems: "center",
+  gap: "0.5rem",
+}));
+
+const QrWrapper = styled(Box)(({ theme }) => ({
+  border: `4px solid ${theme.palette.primary.main}`,
+  height: "190px",
+  width: "190px",
+  borderRadius: "0.5rem",
+  display: "grid",
+  placeContent: "center",
+}));
+
+const AppContainer = styled(Box)(({ theme }) => ({
+  display: "flex",
+  gap: "1rem",
+}));
+
+const PolygonIdImg = styled.img(({ theme }) => ({
+  height: "1.3rem",
+}));
+
+const BadgeImage = styled.img(({ theme }) => ({
+  height: "2.5rem",
+}));
+
+const DummyQrImg = styled.img(({ theme }) => ({
+  height: "10rem",
+}));
+
 const ResendText = styled(Typography)(({ theme }) => ({
   color: theme.palette.primary.main,
   fontWeight: "400",
   fontSize: "0.8rem",
   textDecoration: "underline",
-  cursor:"pointer"
+  cursor: "pointer",
 }));
 
 const RegisterHeaderText = styled(Typography)(({ theme }) => ({
@@ -111,4 +165,12 @@ export const S = {
   OtpSubText,
   OtpSmallText,
   ResendText,
+  ClaimWrapper,
+  ClaimNumberText,
+  ClaimText,
+  QrWrapper,
+  AppContainer,
+  BadgeImage,
+  PolygonIdImg,
+  DummyQrImg,
 };

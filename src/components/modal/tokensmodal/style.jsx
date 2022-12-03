@@ -41,7 +41,8 @@ const SingleContact = styled(Box)(({ theme }) => ({
   width: "100%",
   padding: "1rem 2rem",
   display: "flex",
-  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "space-between",
   borderBottom: `1px solid #e2e2e2`,
   cursor: "pointer",
   "&:hover": {

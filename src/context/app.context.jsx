@@ -3,8 +3,10 @@ import { createContext, useContext, useReducer } from "react";
 const initialState = {
   activeStep: 0,
   showContactsModal: false,
+  showTokensModal: true,
   setActiveStep: () => {},
   setShowContactsModal: () => {},
+  setShowTokensModal: () => {},
 };
 
 const reducer = (state, action) => {
@@ -13,6 +15,8 @@ const reducer = (state, action) => {
       return { ...state, activeStep: action.payload };
     case "SET_SHOW_CONTACTS_MODAL":
       return { ...state, showContactsModal: action.payload };
+    case "SET_SHOW_TOKENS_MODAL":
+      return { ...state, showTokensModal: action.payload };
     default:
       return { ...state };
   }
@@ -29,6 +33,10 @@ function AppProvider(props) {
 
   state.setShowContactsModal = (data) => {
     dispatch({ type: "SET_SHOW_CONTACTS_MODAL", payload: data });
+  };
+
+  state.setShowTokensModal = (data) => {
+    dispatch({ type: "SET_SHOW_TOKENS_MODAL", payload: data });
   };
 
   let data = { ...state };

@@ -6,12 +6,10 @@ import ReceiveIcon from "../../assets/icons/ReceiveArrow.svg";
 import InterchangeArrow from "../../assets/icons/InterchangeArrow.svg";
 import ContactIcon from "../../assets/icons/ContactsIcon.svg";
 import { ASSETS_LIST } from "../../utils/constants";
-import {
-  InputAdornment,
-} from "@mui/material";
+import { InputAdornment } from "@mui/material";
 import { useAppContext } from "../../context/app.context";
 const MyWallet = () => {
-  const { setShowContactsModal } = useAppContext();
+  const { setShowContactsModal, setShowTokensModal } = useAppContext();
   const [cardState, setCardState] = useState("SEND");
 
   return (
@@ -86,12 +84,18 @@ const MyWallet = () => {
               />
             </S.InputWrapper>
             <S.InputWrapper>
-              Currency:{" "}
-              <S.CustomInput
+              Currency:&nbsp;
+              {/* <S.CustomInput
                 type="text"
                 placeholder="Enter phone number or wallet address"
                 disableUnderline={true}
-              />
+              /> */}
+              <Box
+                sx={{ cursor: "pointer" }}
+                onClick={() => setShowTokensModal(true)}
+              >
+                Etherum
+              </Box>
             </S.InputWrapper>
             <S.InputWrapper>
               Note:{" "}

@@ -2,13 +2,17 @@ import { createContext, useContext, useReducer } from "react";
 
 const initialState = {
   currentScreen: "REGISTER",
+  activeStep: 0,
   setCurrentScreen: () => {},
+  setActiveStep: () => {},
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "SET_CURRENT_SCREEN":
       return { ...state, currentScreen: action.payload };
+    case "SET_ACTIVE_STEP":
+      return { ...state, activeStep: action.payload };
     default:
       return { ...state };
   }
@@ -21,6 +25,9 @@ function AppProvider(props) {
 
   state.setCurrentScreen = (data) => {
     dispatch({ type: "SET_CURRENT_SCREEN", payload: data });
+  };
+  state.setActiveStep = (data) => {
+    dispatch({ type: "SET_ACTIVE_STEP", payload: data });
   };
 
   let data = { ...state };

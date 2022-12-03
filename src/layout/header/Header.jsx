@@ -14,7 +14,7 @@ const Header = () => {
     <S.HeaderWrapper>
       <S.HeaderContainer>
         <S.LogoContainer>
-          <img src={MainLogo} alt="" srcset="" />
+          <img src={MainLogo} alt="" />
         </S.LogoContainer>
 
         <Box

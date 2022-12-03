@@ -115,7 +115,7 @@ const DummyQrImg = styled.img(({ theme }) => ({
   height: "10rem",
 }));
 
-const ResendText = styled(Typography)(({ theme }) => ({
+const ResendText = styled.span(({ theme }) => ({
   color: theme.palette.primary.main,
   fontWeight: "400",
   fontSize: "0.8rem",
@@ -135,7 +135,7 @@ const RegisterSubHeader = styled(Typography)(({ theme }) => ({
   fontWeight: "400",
 }));
 const RegisterFooter = styled(Box)(({ theme }) => ({
-  height: "50%",
+  height: "35%",
   width: "100%",
 }));
 
@@ -149,6 +149,51 @@ const MainButton = styled(Button)(({ theme }) => ({
   width: "20rem",
   height: "3rem",
   fontSize: "1rem",
+  "&:hover": {
+    background: theme.palette.primary.main,
+    opacity: 0.75,
+  },
+  "&:disabled": {
+    background: "#C5C5C5",
+    color: theme.palette.primary.contrastText,
+  },
+}));
+
+const CongratsWrapper = styled(Box)(({ theme }) => ({
+  height: "100%",
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "2rem",
+}));
+
+const WorldCoinScreenWrapper = styled(Box)(({ theme }) => ({
+  height: "100%",
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "2rem",
+}));
+
+const CongratsImg = styled.img(({ theme }) => ({
+  height: "15rem",
+  marginBottom: "1rem",
+}));
+
+const CongratsText = styled(Typography)(({ theme }) => ({
+  fontSize: "1.5rem",
+  color: theme.palette.grey[600],
+  fontWeight: "500",
+}));
+
+const CongratsSubText = styled(Typography)(({ theme }) => ({
+  fontSize: "0.8rem",
+  color: theme.palette.grey[600],
+  fontWeight: "400",
 }));
 
 export const S = {
@@ -173,4 +218,9 @@ export const S = {
   BadgeImage,
   PolygonIdImg,
   DummyQrImg,
+  CongratsWrapper,
+  CongratsImg,
+  CongratsText,
+  CongratsSubText,
+  WorldCoinScreenWrapper,
 };

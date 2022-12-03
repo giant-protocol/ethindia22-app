@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import AppRoutes from "../routes/AppRouters";
 import ContactsModal from "../components/modal/contactsmodal";
 import TokensModal from "../components/modal/tokensmodal";
+import ApproveModal from "../components/modal/approvemodal";
 
 const Layout = () => {
   return (
@@ -14,6 +15,7 @@ const Layout = () => {
       </Router>
       <ContactsModal />
       <TokensModal />
+      <ApproveModal />
     </div>
   );
 };

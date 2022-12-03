@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import "./App.css";
+import { metaMask } from "./connectors/Metamask";
+import Layout from "./layout";
 
 function App() {
+  const isConnected = localStorage.getItem("isConnected");
+
+  useEffect(() => {
+    if (isConnected === "true") {
+      if (metaMask) {
+        metaMask.connectEagerly();
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    window.ethereum.on("accountsChanged", function (accounts) {
+      window.location.reload();
+    });
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Layout />
     </div>
   );
 }

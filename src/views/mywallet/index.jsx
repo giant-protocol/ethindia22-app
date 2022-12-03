@@ -6,17 +6,20 @@ import ReceiveIcon from "../../assets/icons/ReceiveArrow.svg";
 import InterchangeArrow from "../../assets/icons/InterchangeArrow.svg";
 import ContactIcon from "../../assets/icons/ContactsIcon.svg";
 import SuccessCheck from "../../assets/icons/SuccessCheck.svg";
-import { ASSETS_LIST } from "../../utils/constants";
+import Dpay from "../../assets/icons/Dpay.svg";
 import { InputAdornment } from "@mui/material";
 import { useAppContext } from "../../context/app.context";
+import { toWei } from "../../utils";
 const MyWallet = () => {
-  const { setShowContactsModal, setShowTokensModal } = useAppContext();
+  const { setShowContactsModal, setShowTokensModal, userData } =
+    useAppContext();
   const [cardState, setCardState] = useState("INIT");
 
   const handleSend = () => {
     setCardState("SUCCESS");
   };
 
+  console.log(userData, "userData");
   return (
     <S.MyWalletWrapper>
       {cardState !== "SUCCESS" && <S.MainText>DPN: +01164504560</S.MainText>}
@@ -37,16 +40,21 @@ const MyWallet = () => {
           <S.AssetsHeader>
             <S.AssetsHeaderText>Assets</S.AssetsHeaderText>
           </S.AssetsHeader>
-          {ASSETS_LIST.map((asset) => {
+          {userData?.balance?.map((asset, index) => {
+            let assetBalance = toWei(asset.balance);
             return (
               <S.AssetWrapper key={asset.id} id={asset.id}>
                 <Box
                   sx={{ display: "flex", alignItems: "center", gap: "1rem" }}
                 >
-                  <img src={asset.icon} alt="" />
-                  {asset.name}: {asset.value}
+                  <img
+                    src={index === 1 ? Dpay : asset.logo_url}
+                    alt=""
+                    style={{ height: "3rem" }}
+                  />
+                  {asset.name} {asset.contract_name}
                 </Box>
-                {asset.dollar}
+                {assetBalance}&nbsp;{asset?.contract_ticker_symbol}
               </S.AssetWrapper>
             );
           })}

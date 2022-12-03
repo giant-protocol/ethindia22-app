@@ -2,7 +2,25 @@ import { HttpClient } from "../../utils/constants/httpClient";
 
 let httpClient = new HttpClient();
 
-export const getRegions = async () => {
-  const response = await httpClient.get("regions/active");
+export const getUserStatus = async (address) => {
+  const response = await httpClient.post("/api/user/status", {
+    walletAddress: address,
+  });
+  return response;
+};
+
+export const sendOtp = async (phoneNumber) => {
+  const response = await httpClient.post("/api/user/send_otp", {
+    phoneNumber: phoneNumber,
+  });
+  return response;
+};
+
+export const verifyOtp = async (phoneNumber, code, address) => {
+  const response = await httpClient.post("/api/user/send_verify", {
+    phoneNumber: phoneNumber,
+    code: code,
+    walletAddress: address,
+  });
   return response;
 };

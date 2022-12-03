@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { S } from "./styles";
 import MetamaskIcon from "../../assets/icons/MetamaskIcon.svg";
 import { metaMask } from "../../connectors/Metamask";
@@ -8,9 +8,38 @@ import { Box } from "@mui/system";
 import MainLogo from "../../assets/MainLogo.svg";
 import PushProtocolIcon from "../../assets/PushProtocolIcon.svg";
 import { NAV_ITEMS } from "../../utils/constants";
+import { useAppContext } from "../../context/app.context";
+import { getUserStatus } from "../../services/http/app.service";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const {
+    isRegistered,
+    walletLoading,
+    setWalletLoading,
+    setIsRegistered,
+    setUserData,
+  } = useAppContext();
+  const navigate = useNavigate();
+
   const { account } = useWeb3React();
+
+  useEffect(() => {
+    setWalletLoading(true);
+    if (account) {
+      getUserStatus(account).then((res) => {
+        setIsRegistered(res.status);
+        setWalletLoading(false);
+        if (res.status === true) {
+          navigate("/my-wallet");
+          setUserData(res.data);
+        }
+      });
+    } else {
+      setWalletLoading(false);
+    }
+  }, [account]);
+
   return (
     <S.HeaderWrapper>
       <S.HeaderContainer>
@@ -18,23 +47,25 @@ const Header = () => {
           <img src={MainLogo} alt="" />
         </S.LogoContainer>
 
-        <S.Nav>
-          {NAV_ITEMS.map((nav) => {
-            return (
-              <S.CustomLink 
-                to={nav.route}
-                style={({ isActive }) => {
-                  return {
-                    borderBottom: isActive ? "3px solid #00C853" : "",
-                    color: isActive ? "#00C853" : "inherit",
-                  };
-                }}
-              >
-                {nav.label}
-              </S.CustomLink>
-            );
-          })}
-        </S.Nav>
+        {isRegistered === true && (
+          <S.Nav>
+            {NAV_ITEMS.map((nav) => {
+              return (
+                <S.CustomLink
+                  to={nav.route}
+                  style={({ isActive }) => {
+                    return {
+                      borderBottom: isActive ? "3px solid #00C853" : "",
+                      color: isActive ? "#00C853" : "inherit",
+                    };
+                  }}
+                >
+                  {nav.label}
+                </S.CustomLink>
+              );
+            })}
+          </S.Nav>
+        )}
 
         <Box
           sx={{

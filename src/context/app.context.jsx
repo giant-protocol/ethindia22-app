@@ -6,11 +6,17 @@ const initialState = {
   showTokensModal: false,
   showApproveModal: false,
   approveModalType: "approve",
+  isRegistered: false,
+  walletLoading: false,
+  userData: [],
   setActiveStep: () => {},
   setShowContactsModal: () => {},
   setShowTokensModal: () => {},
   setShowApproveModal: () => {},
   setApproveModalType: () => {},
+  setIsRegistered: () => {},
+  setWalletLoading: () => {},
+  setUserData: () => {},
 };
 
 const reducer = (state, action) => {
@@ -25,6 +31,12 @@ const reducer = (state, action) => {
       return { ...state, showApproveModal: action.payload };
     case "SET_APPROVE_MODAL_TYPE":
       return { ...state, approveModalType: action.payload };
+    case "SET_IS_REGISTERED":
+      return { ...state, isRegistered: action.payload };
+    case "SET_WALLET_LOADING":
+      return { ...state, walletLoading: action.payload };
+    case "SET_USER_DATA":
+      return { ...state, userData: action.payload };
     default:
       return { ...state };
   }
@@ -53,6 +65,18 @@ function AppProvider(props) {
 
   state.setApproveModalType = (data) => {
     dispatch({ type: "SET_APPROVE_MODAL_TYPE", payload: data });
+  };
+
+  state.setIsRegistered = (data) => {
+    dispatch({ type: "SET_IS_REGISTERED", payload: data });
+  };
+
+  state.setWalletLoading = (data) => {
+    dispatch({ type: "SET_WALLET_LOADING", payload: data });
+  };
+
+  state.setUserData = (data) => {
+    dispatch({ type: "SET_USER_DATA", payload: data });
   };
 
   let data = { ...state };

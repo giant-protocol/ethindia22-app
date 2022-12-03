@@ -1,4 +1,4 @@
-import { TextField, Typography } from "@mui/material";
+import { CircularProgress, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import CustomOtpInput from "../../../components/otpinput";
@@ -14,19 +14,53 @@ import Minus from "../../../assets/icons/Minus.svg";
 
 import { S } from "./style";
 import { useAppContext } from "../../../context/app.context";
+import {
+  getUserStatus,
+  sendOtp,
+  verifyOtp,
+} from "../../../services/http/app.service";
+import { useWeb3React } from "@web3-react/core";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const { activeStep, setActiveStep } = useAppContext();
+  const {
+    activeStep,
+    setActiveStep,
+    setIsRegistered,
+    setWalletLoading,
+    setUserData,
+  } = useAppContext();
+  const { account } = useWeb3React();
   const [otp, setOtp] = React.useState("");
   const [registrationPeriod, setRegistrationPeriod] = React.useState(1);
   const [phoneNumber, setPhoneNumber] = React.useState("");
+  const [QRCode, setQRCode] = React.useState("");
+  const navigate = useNavigate();
 
   const handleSubmitNumber = () => {
-    setActiveStep(activeStep + 1);
+    sendOtp(phoneNumber).then((res) => setActiveStep(activeStep + 1));
   };
 
   const handleOtpVerification = () => {
-    setActiveStep(activeStep + 1);
+    verifyOtp(phoneNumber, otp, account).then((res) => {
+      console.log(res, "res");
+      setQRCode(`data:image/png;base64,${res.data}`);
+      setActiveStep(activeStep + 1);
+    });
+  };
+
+  const updateUserData = () => {
+    getUserStatus(account)
+      .then((res) => {
+        setWalletLoading(false);
+        setIsRegistered(true);
+        navigate("/my-wallet");
+        setUserData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        setWalletLoading(false);
+      });
   };
 
   return (
@@ -75,6 +109,8 @@ const Register = () => {
                     label="Phone Number"
                     variant="standard"
                     sx={{ width: "100%" }}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    value={phoneNumber}
                   />
                   <Box
                     sx={{
@@ -147,7 +183,11 @@ const Register = () => {
               <S.ClaimWrapper>
                 <S.ClaimNumberText>+1 9864256954</S.ClaimNumberText>
                 <S.QrWrapper>
-                  <S.DummyQrImg src={DummyQrImg} alt="" />
+                  {QRCode !== "" ? (
+                    <S.DummyQrImg src={QRCode} alt="" />
+                  ) : (
+                    <CircularProgress />
+                  )}
                 </S.QrWrapper>
                 <S.ClaimText>
                   <S.PolygonIdImg src={PolygonIdIcon} alt="" />
@@ -157,6 +197,9 @@ const Register = () => {
                   <S.BadgeImage src={AppStoreBadge} alt="" />
                   <S.BadgeImage src={PlayStoreBadge} alt="" />
                 </S.AppContainer>
+                <S.MainButton onClick={() => setActiveStep(activeStep + 1)}>
+                  Continue
+                </S.MainButton>
               </S.ClaimWrapper>
             )}
           </S.RegisterBody>
@@ -179,7 +222,9 @@ const Register = () => {
           <S.CongratsSubText>
             You have successfuly claimed your <br /> Decentralized Phone Number
           </S.CongratsSubText>
-          <S.MainButton onClick={() => setActiveStep(4)}>Continue</S.MainButton>
+          <S.MainButton onClick={() => setActiveStep(activeStep + 1)}>
+            Continue
+          </S.MainButton>
         </S.CongratsWrapper>
       )}
 
@@ -202,7 +247,13 @@ const Register = () => {
               <S.BadgeImage src={AppStoreBadge} alt="" />
               <S.BadgeImage src={PlayStoreBadge} alt="" />
             </S.AppContainer>
-            <S.ClaimNumberText>Skip for now, configure later</S.ClaimNumberText>
+            <S.ClaimNumberText
+              sx={{ cursor: "pointer" }}
+              onClick={updateUserData}
+            >
+              Skip for now, configure later
+            </S.ClaimNumberText>
+            <S.MainButton onClick={updateUserData}>Continue</S.MainButton>
           </S.ClaimWrapper>
         </S.WorldCoinScreenWrapper>
       )}

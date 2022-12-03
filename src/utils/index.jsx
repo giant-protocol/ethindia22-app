@@ -1,4 +1,5 @@
 import { metaMask } from "../connectors/Metamask";
+import { BigNumber } from "bignumber.js";
 
 export const handleConnect = () => {
   if (window && window?.ethereum) {
@@ -33,3 +34,7 @@ export function shortenedLink(address, chars = 4) {
     )}`;
   }
 }
+
+export const toWei = (amount, decimal = 18) => {
+  return new BigNumber(amount).dividedBy(Math.pow(10, decimal)).toString();
+};

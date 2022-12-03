@@ -1,15 +1,15 @@
-import { useWeb3React } from "@web3-react/core";
 import React from "react";
-import Home from "../views /Home/Home";
-import NotConnected from "../views /notconnected";
 import Header from "./header/Header";
+import { BrowserRouter as Router } from "react-router-dom";
+import AppRoutes from "../routes/AppRouters";
 
 const Layout = () => {
-  const { account } = useWeb3React();
   return (
     <div>
-      <Header />
-      {account ? <Home /> : <NotConnected />}
+      <Router>
+        <Header />
+        <AppRoutes />
+      </Router>
     </div>
   );
 };

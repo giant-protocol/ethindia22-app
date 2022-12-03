@@ -1,7 +1,7 @@
 import { S } from "./style";
-import coonnectEthImg from "../../assets/ConnectEthImg.svg";
-import MoneyBag from "../../assets/MoneyBag.svg";
-import { handleConnect } from "../../utils";
+import coonnectEthImg from "../../../assets/ConnectEthImg.svg";
+import MoneyBag from "../../../assets/MoneyBag.svg";
+import { handleConnect } from "../../../utils";
 
 const NotConnected = () => {
   return (

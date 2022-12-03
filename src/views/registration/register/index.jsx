@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import CustomOtpInput from "../../../components/otpinput";
@@ -9,6 +9,8 @@ import DummyQrImg from "../../../assets/DummyQr.jpg";
 import PolygonIdIcon from "../../../assets/icons/PolygonIDIcon.svg";
 import WorldCoinIcon from "../../../assets/icons/WorldCoinIcon.svg";
 import CongratsImg from "../../../assets/CongratsImg.jpg";
+import Plus from "../../../assets/icons/Plus.svg";
+import Minus from "../../../assets/icons/Minus.svg";
 
 import { S } from "./style";
 import { useAppContext } from "../../../context/app.context";
@@ -16,6 +18,8 @@ import { useAppContext } from "../../../context/app.context";
 const Register = () => {
   const { activeStep, setActiveStep } = useAppContext();
   const [otp, setOtp] = React.useState("");
+  const [registrationPeriod, setRegistrationPeriod] = React.useState(1);
+  const [phoneNumber, setPhoneNumber] = React.useState("");
 
   const handleSubmitNumber = () => {
     setActiveStep(activeStep + 1);
@@ -24,8 +28,6 @@ const Register = () => {
   const handleOtpVerification = () => {
     setActiveStep(activeStep + 1);
   };
-
-  console.log(activeStep, "activeStep");
 
   return (
     <S.RegisterContainer>
@@ -81,14 +83,39 @@ const Register = () => {
                       alignItems: "flex-start",
                     }}
                   >
-                    <S.RegisterSubHeader>
+                    <S.RegisterSubHeader
+                      sx={{ marginBottom: "1rem !important" }}
+                    >
                       Registration period
                     </S.RegisterSubHeader>
-                    <TextField
+                    <S.RegistrationPeriodContainer>
+                      <img
+                        src={Minus}
+                        alt=""
+                        onClick={() =>
+                          registrationPeriod !== 1 &&
+                          setRegistrationPeriod((prev) => prev - 1)
+                        }
+                      />
+                      <Typography
+                        sx={{ fontWeight: "500", fontSize: "1.5rem" }}
+                      >
+                        {registrationPeriod} Year
+                      </Typography>
+                      <img
+                        src={Plus}
+                        alt=""
+                        onClick={() =>
+                          setRegistrationPeriod((prev) => prev + 1)
+                        }
+                      />
+                    </S.RegistrationPeriodContainer>
+
+                    {/* <TextField
                       id="outlined-basic"
                       variant="outlined"
                       sx={{ width: "100%" }}
-                    />
+                    /> */}
                   </Box>
                 </Box>
                 <S.MainButton onClick={handleSubmitNumber}>
@@ -105,7 +132,7 @@ const Register = () => {
                   <CustomOtpInput otp={otp} setOtp={setOtp} />
                   <S.OtpSmallText>
                     We sent you a code. If you did not
-                    <br /> receive the code tap to{' '}
+                    <br /> receive the code tap to{" "}
                     <S.ResendText>Resend</S.ResendText>
                   </S.OtpSmallText>
                 </Box>

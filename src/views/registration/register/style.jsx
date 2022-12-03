@@ -139,7 +139,16 @@ const RegisterFooter = styled(Box)(({ theme }) => ({
   width: "100%",
 }));
 
-const RegistrationPeriodContainer = styled(Box)(({ theme }) => ({}));
+const RegistrationPeriodContainer = styled(Box)(({ theme }) => ({
+  border: "0.1px solid #414141",
+  borderRadius: "0.625rem",
+  width: "100%",
+  height: "3rem",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  padding: "2rem",
+}));
 
 const MainButton = styled(Button)(({ theme }) => ({
   textTransform: "none",

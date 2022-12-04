@@ -4,6 +4,7 @@ import { useAppContext } from "../../../context/app.context";
 import CloseIcon from "../../../assets/icons/CloseIcon.svg";
 import AlertIcon from "../../../assets/icons/AlertIcon.svg";
 import IdeaIcon from "../../../assets/icons/Idea.svg";
+import ChainLink from "../../../assets/icons/ChainLink.png";
 
 import { S } from "./style";
 import { Box } from "@mui/system";
@@ -101,7 +102,7 @@ const ApproveModal = () => {
         </S.ApproveModalHeader>
         {approveModalType === "approve" && (
           <S.ApproveModalBody sx={{ padding: "1rem 0" }}>
-            <img src={selectedChaindata?.logo_url} alt="" />
+            <img src={ChainLink} alt="" />
             <S.ApproveText>
               Please approve PESA in <br />
               {selectedChaindata?.contract_name} for transactions.{" "}
@@ -128,7 +129,7 @@ const ApproveModal = () => {
                   fontWeight: "500 !important",
                 }}
               >
-                +919787370660
+                {userData?.user?.phoneNumber}
               </S.NumberText>
             </Box>
             <Box sx={{ display: "flex", padding: "0 1rem", gap: "1rem" }}>

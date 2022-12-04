@@ -32,6 +32,7 @@ const ContactsInput = styled(Input)(({ theme }) => ({
 const AllTransactionsContainer = styled(Box)(({ theme }) => ({
   height: "100%",
   minHeight: "25rem",
+  maxHeight: "25rem",
   overflow: "auto",
 }));
 

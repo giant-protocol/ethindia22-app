@@ -29,6 +29,7 @@ const Register = () => {
     setIsRegistered,
     setWalletLoading,
     setUserData,
+    userData,
   } = useAppContext();
   const { account } = useWeb3React();
   const [otp, setOtp] = React.useState("");
@@ -181,7 +182,9 @@ const Register = () => {
             )}
             {activeStep === 2 && (
               <S.ClaimWrapper>
-                <S.ClaimNumberText>+1 9864256954</S.ClaimNumberText>
+                <S.ClaimNumberText>
+                  {userData?.user?.phoneNumber}
+                </S.ClaimNumberText>
                 <S.QrWrapper>
                   {QRCode !== "" ? (
                     <S.DummyQrImg src={QRCode} alt="" />
@@ -222,40 +225,8 @@ const Register = () => {
           <S.CongratsSubText>
             You have successfuly claimed your <br /> Decentralized Phone Number
           </S.CongratsSubText>
-          <S.MainButton onClick={() => setActiveStep(activeStep + 1)}>
-            Continue
-          </S.MainButton>
+          <S.MainButton onClick={updateUserData}>Continue</S.MainButton>
         </S.CongratsWrapper>
-      )}
-
-      {activeStep === 4 && (
-        <S.WorldCoinScreenWrapper>
-          <S.RegisterHeaderText>
-            Link your DPN with Worldcoin
-          </S.RegisterHeaderText>
-
-          <S.ClaimWrapper sx={{ gap: "2rem !important" }}>
-            <S.ClaimNumberText>+1 9864256954</S.ClaimNumberText>
-            <S.QrWrapper>
-              <S.DummyQrImg src={DummyQrImg} alt="" />
-            </S.QrWrapper>
-            <S.ClaimText>
-              <S.PolygonIdImg src={WorldCoinIcon} alt="" />
-              Use your Polygon ID app to scan and claim your phone number
-            </S.ClaimText>
-            <S.AppContainer>
-              <S.BadgeImage src={AppStoreBadge} alt="" />
-              <S.BadgeImage src={PlayStoreBadge} alt="" />
-            </S.AppContainer>
-            <S.ClaimNumberText
-              sx={{ cursor: "pointer" }}
-              onClick={updateUserData}
-            >
-              Skip for now, configure later
-            </S.ClaimNumberText>
-            <S.MainButton onClick={updateUserData}>Continue</S.MainButton>
-          </S.ClaimWrapper>
-        </S.WorldCoinScreenWrapper>
       )}
     </S.RegisterContainer>
   );

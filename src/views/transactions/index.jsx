@@ -48,8 +48,6 @@ const Transactions = () => {
     }
   }, [account]);
 
-  console.log(transactionsList, "transactionsList");
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

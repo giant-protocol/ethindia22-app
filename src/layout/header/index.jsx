@@ -11,6 +11,7 @@ import { NAV_ITEMS } from "../../utils/constants";
 import { useAppContext } from "../../context/app.context";
 import { getUserStatus } from "../../services/http/app.service";
 import { useNavigate } from "react-router-dom";
+import { EmbedSDK } from "@pushprotocol/uiembed";
 
 const Header = () => {
   const {
@@ -21,8 +22,36 @@ const Header = () => {
     setUserData,
   } = useAppContext();
   const navigate = useNavigate();
-
   const { account } = useWeb3React();
+
+  useEffect(() => {
+    if (account) {
+      console.log("initiated");
+      EmbedSDK.init({
+        headerText: "Notifications", // optional
+        targetID: "sdk-trigger-id", // mandatory
+        appName: "DePay", // mandatory
+        user: account, // mandatory
+        chainId: 80001, // mandatory
+        viewOptions: {
+          showUnreadIndicator: true, // optional
+          unreadIndicatorColor: "#cc1919",
+          unreadIndicatorPosition: "bottom-right",
+        },
+        theme: "dark",
+        onOpen: () => {
+          console.log("-> client dApp onOpen callback");
+        },
+        onClose: () => {
+          console.log("-> client dApp onClose callback");
+        },
+      });
+    }
+
+    return () => {
+      EmbedSDK.cleanup();
+    };
+  }, [account]);
 
   useEffect(() => {
     setWalletLoading(true);

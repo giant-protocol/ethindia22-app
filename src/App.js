@@ -4,6 +4,9 @@ import "./App.css";
 import { metaMask } from "./connectors/Metamask";
 import ethindiaContractService from "./ethereum/contract/ethindiaContractService";
 import Layout from "./layout";
+import { Buffer } from 'buffer';
+import { Chat } from "@pushprotocol/uiweb";
+global.Buffer = Buffer;
 
 function App() {
   const isConnected = localStorage.getItem("isConnected");
@@ -32,6 +35,13 @@ function App() {
   return (
     <div className="App">
       <Layout />
+      <Chat
+          account={account} //user address
+          supportAddress="0x593f63f616a9EE5875decDbD83042F61f41199Fc" //support address
+          apiKey="F7PCjk9Oh1.MF2p97cUE8chqBuZCvrQ1pgxAy8ASQOcdaNDmIpp527w7vzYAIah5xyywyEd0QOh"
+          env="staging"
+          modalTitle="DePay help desk"
+        />
     </div>
   );
 }

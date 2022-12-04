@@ -7,6 +7,8 @@
     "@emotion/styled": "^11.10.5",
     "@ethersproject/contracts": "^5.7.0",
     "@mui/material": "^5.10.16",
+    "@pushprotocol/restapi": "^0.2.1",
+    "@pushprotocol/uiweb": "^0.2.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -14,6 +16,7 @@
     "@web3-react/metamask": "^8.0.28-beta.0",
     "axios": "^1.2.0",
     "bignumber.js": "^9.1.0",
+    "buffer": "^6.0.3",
     "ethers": "^5.7.2",
     "moment": "^2.29.4",
     "mui-one-time-password-input": "^1.0.3",
@@ -21,6 +24,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.4",
     "react-scripts": "5.0.1",
+    "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

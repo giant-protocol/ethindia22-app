@@ -7,7 +7,7 @@ import InterchangeArrow from "../../assets/icons/InterchangeArrow.svg";
 import ContactIcon from "../../assets/icons/ContactsIcon.svg";
 import SuccessCheck from "../../assets/icons/SuccessCheck.svg";
 import ChainLink from "../../assets/icons/ChainLink.png";
-import { CircularProgress, InputAdornment, Typography } from "@mui/material";
+import { InputAdornment, Typography } from "@mui/material";
 import { useAppContext } from "../../context/app.context";
 import { toWei } from "../../utils";
 import ethindiaContractService from "../../ethereum/contract/ethindiaContractService";
@@ -39,7 +39,6 @@ const MyWallet = () => {
   const [cardState, setCardState] = useState("INIT");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [currencyValue, setCurrencyValue] = useState("");
-  const [sendLoading, setSendLoading] = useState(false);
 
   useEffect(() => {
     getUserStatus(account)
@@ -55,7 +54,6 @@ const MyWallet = () => {
   }, []);
 
   const handleSend = () => {
-    setSendLoading(true);
     checkIsRegistered(phoneNumber).then((res) => {
       setAddressOfTheReceiver(res?.data?.walletAddress);
       setIdOfTheReceiver(res?.data?.userId);
@@ -75,15 +73,11 @@ const MyWallet = () => {
                 isSendToDPN: true,
                 isEscrow: false,
                 isToken: false,
-              }).then((res) => {
-                setSendLoading(false);
-                navigate("/transactions");
-              });
+              }).then((res) => navigate("/transactions"));
             });
         } else {
           setShowApproveModal(true);
           setReceiverRegistered(true);
-          setSendLoading(false);
         }
       } else {
         if (selectedChaindata?.contract_ticker_symbol === "MATIC") {
@@ -102,16 +96,12 @@ const MyWallet = () => {
                 isSendToDPN: false,
                 isEscrow: true,
                 isToken: false,
-              }).then((res) => {
-                setSendLoading(false);
-                navigate("/transactions");
-              });
+              }).then((res) => navigate("/transactions"));
             });
         } else {
           setShowApproveModal(true);
           setReceiverRegistered(false);
           setEscrowSenderId(res.data);
-          setSendLoading(false);
         }
       }
     });
@@ -240,11 +230,7 @@ const MyWallet = () => {
                 Cancel
               </S.CancelBtn>
               <S.SendSecondaryBtn onClick={() => handleSend()}>
-                {sendLoading ? (
-                  <CircularProgress color="inherit" size={35} />
-                ) : (
-                  "Send"
-                )}
+                Send
               </S.SendSecondaryBtn>
             </S.ButtonsContainer>
           </S.SendFooter>

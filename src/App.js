@@ -38,7 +38,7 @@ function App() {
       <Chat
           account={account} //user address
           supportAddress="0x593f63f616a9EE5875decDbD83042F61f41199Fc" //support address
-          apiKey="F7PCjk9Oh1.MF2p97cUE8chqBuZCvrQ1pgxAy8ASQOcdaNDmIpp527w7vzYAIah5xyywyEd0QOh"
+          apiKey={process.env.REACT_APP_PUSH_API_KEY}
           env="staging"
           modalTitle="DePay help desk"
         />

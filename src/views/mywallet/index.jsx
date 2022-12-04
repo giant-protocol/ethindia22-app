@@ -1,12 +1,12 @@
 import { Box } from "@mui/system";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { S } from "./style";
 import SendIcon from "../../assets/icons/SendArrow.svg";
 import ReceiveIcon from "../../assets/icons/ReceiveArrow.svg";
 import InterchangeArrow from "../../assets/icons/InterchangeArrow.svg";
 import ContactIcon from "../../assets/icons/ContactsIcon.svg";
 import SuccessCheck from "../../assets/icons/SuccessCheck.svg";
-import Dpay from "../../assets/icons/Dpay.svg";
+import ChainLink from "../../assets/icons/ChainLink.png";
 import { InputAdornment, Typography } from "@mui/material";
 import { useAppContext } from "../../context/app.context";
 import { toWei } from "../../utils";
@@ -14,9 +14,12 @@ import ethindiaContractService from "../../ethereum/contract/ethindiaContractSer
 import {
   checkIsRegistered,
   createTransaction,
+  getUserStatus,
 } from "../../services/http/app.service";
 import { useNavigate } from "react-router-dom";
+import { useWeb3React } from "@web3-react/core";
 const MyWallet = () => {
+  const { account } = useWeb3React();
   const navigate = useNavigate();
   const {
     setShowContactsModal,
@@ -29,10 +32,26 @@ const MyWallet = () => {
     setReceiverRegistered,
     setEscrowSenderId,
     setIdOfTheReceiver,
+    setWalletLoading,
+    setUserData,
+    setIsRegistered,
   } = useAppContext();
   const [cardState, setCardState] = useState("INIT");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [currencyValue, setCurrencyValue] = useState("");
+
+  useEffect(() => {
+    getUserStatus(account)
+      .then((res) => {
+        setWalletLoading(false);
+        setIsRegistered(true);
+        setUserData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        setWalletLoading(false);
+      });
+  }, []);
 
   const handleSend = () => {
     checkIsRegistered(phoneNumber).then((res) => {
@@ -119,7 +138,7 @@ const MyWallet = () => {
                   sx={{ display: "flex", alignItems: "center", gap: "1rem" }}
                 >
                   <img
-                    src={index === 1 ? Dpay : asset.logo_url}
+                    src={index === 1 ? ChainLink : asset.logo_url}
                     alt=""
                     style={{ height: "3rem" }}
                   />
@@ -207,7 +226,9 @@ const MyWallet = () => {
 
           <S.SendFooter>
             <S.ButtonsContainer>
-              <S.CancelBtn>Cancel</S.CancelBtn>
+              <S.CancelBtn onClick={() => setCardState("INIT")}>
+                Cancel
+              </S.CancelBtn>
               <S.SendSecondaryBtn onClick={() => handleSend()}>
                 Send
               </S.SendSecondaryBtn>

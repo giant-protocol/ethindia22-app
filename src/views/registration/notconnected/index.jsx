@@ -14,9 +14,9 @@ const NotConnected = () => {
         />
         <S.NotConnectedText>
           Send and request money globally using
-          <br /> your phone number
+          <br /> your phone number.
           <br />
-          .Get started by connecting your wallet
+          Get started by connecting your wallet
         </S.NotConnectedText>
         <S.ConnectEthBtn onClick={handleConnect}>
           Connect your ETH wallet{" "}

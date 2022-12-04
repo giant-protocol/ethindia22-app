@@ -3,7 +3,7 @@ import React from "react";
 import { useAppContext } from "../../../context/app.context";
 import CloseIcon from "../../../assets/icons/CloseIcon.svg";
 import Searchicon from "../../../assets/icons/SearchIcon.svg";
-import Dpay from "../../../assets/icons/Dpay.svg";
+import ChainLinkIcon from "../../../assets/icons/ChainLink.png";
 import { S } from "./style";
 import { Box } from "@mui/system";
 import { toWei } from "../../../utils";
@@ -70,7 +70,7 @@ const TokensModal = () => {
                   sx={{ display: "flex", gap: "1rem", alignItems: "center" }}
                 >
                   <img
-                    src={index === 1 ? Dpay : asset.logo_url}
+                    src={index === 1 ? ChainLinkIcon : asset.logo_url}
                     alt=""
                     style={{ height: "3rem" }}
                   />

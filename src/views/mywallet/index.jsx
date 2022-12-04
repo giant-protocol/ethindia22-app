@@ -7,6 +7,7 @@ import InterchangeArrow from "../../assets/icons/InterchangeArrow.svg";
 import ContactIcon from "../../assets/icons/ContactsIcon.svg";
 import SuccessCheck from "../../assets/icons/SuccessCheck.svg";
 import Dpay from "../../assets/icons/Dpay.svg";
+import ChainLinkIcon from "../../assets/icons/ChainLink.png";
 import { InputAdornment, Typography } from "@mui/material";
 import { useAppContext } from "../../context/app.context";
 import { toWei } from "../../utils";
@@ -119,7 +120,7 @@ const MyWallet = () => {
                   sx={{ display: "flex", alignItems: "center", gap: "1rem" }}
                 >
                   <img
-                    src={index === 1 ? Dpay : asset.logo_url}
+                    src={index === 1 ? ChainLinkIcon : asset.logo_url}
                     alt=""
                     style={{ height: "3rem" }}
                   />

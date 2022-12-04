@@ -1,5 +1,5 @@
-import { Modal } from "@mui/material";
-import React from "react";
+import { CircularProgress, Modal } from "@mui/material";
+import React, { useState } from "react";
 import { useAppContext } from "../../../context/app.context";
 import CloseIcon from "../../../assets/icons/CloseIcon.svg";
 import AlertIcon from "../../../assets/icons/AlertIcon.svg";
@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 const ApproveModal = () => {
   const navigate = useNavigate();
+  const [approveLoading, setApproveLoading] = useState(false);
 
   const {
     showApproveModal,
@@ -33,6 +34,7 @@ const ApproveModal = () => {
   };
 
   const handleApprove = () => {
+    setApproveLoading(true);
     ethindiaContractService.Approve().then((res) => {
       if (receiverRegisterd) {
         ethindiaContractService
@@ -49,7 +51,11 @@ const ApproveModal = () => {
               isSendToDPN: true,
               isEscrow: false,
               isToken: true,
-            }).then((res) => navigate("/transactions"));
+            }).then((res) => {
+              navigate("/transactions");
+              handleClose();
+              setApproveLoading(false);
+            });
           });
       } else {
         ethindiaContractService
@@ -70,7 +76,11 @@ const ApproveModal = () => {
               isSendToDPN: false,
               isEscrow: true,
               isToken: true,
-            }).then((res) => navigate("/transactions"));
+            }).then((res) => {
+              navigate("/transactions");
+              handleClose();
+              setApproveLoading(false);
+            });
           });
       }
     });
@@ -104,11 +114,17 @@ const ApproveModal = () => {
           <S.ApproveModalBody sx={{ padding: "1rem 0" }}>
             <img src={ChainLinkIcon} alt="" />
             <S.ApproveText>
-              Please approve PESA in <br />
+              Please approve <br />
               {selectedChaindata?.contract_name} for transactions.{" "}
               <S.LearnMoreText>Learn more</S.LearnMoreText>
             </S.ApproveText>
-            <S.ApproveBtn onClick={() => handleApprove()}>Approve</S.ApproveBtn>
+            <S.ApproveBtn onClick={() => handleApprove()}>
+              {approveLoading ? (
+                <CircularProgress size={35} color="inherit" />
+              ) : (
+                "Approve"
+              )}
+            </S.ApproveBtn>
           </S.ApproveModalBody>
         )}
 

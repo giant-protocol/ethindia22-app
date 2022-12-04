@@ -32,6 +32,7 @@ const ApproveModal = () => {
     setShowApproveModal(false);
   };
 
+  console.log("test");
   const handleApprove = () => {
     ethindiaContractService.Approve().then((res) => {
       if (receiverRegisterd) {

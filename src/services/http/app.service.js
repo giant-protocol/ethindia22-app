@@ -39,3 +39,13 @@ export const createTransaction = async (data) => {
   );
   return response;
 };
+
+export const getTransactions = async (address) => {
+  const response = await httpClient.post(
+    "/api/paymentGateway/getTransactions",
+    {
+      walletAddress: address,
+    }
+  );
+  return response;
+};

@@ -12,10 +12,10 @@ const Layout = () => {
       <Router>
         <Header />
         <AppRoutes />
+        <ContactsModal />
+        <TokensModal />
+        <ApproveModal />
       </Router>
-      <ContactsModal />
-      <TokensModal />
-      <ApproveModal />
     </div>
   );
 };

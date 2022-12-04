@@ -15,7 +15,9 @@ import {
   checkIsRegistered,
   createTransaction,
 } from "../../services/http/app.service";
+import { useNavigate } from "react-router-dom";
 const MyWallet = () => {
+  const navigate = useNavigate();
   const {
     setShowContactsModal,
     setShowTokensModal,
@@ -52,7 +54,7 @@ const MyWallet = () => {
                 isSendToDPN: true,
                 isEscrow: false,
                 isToken: false,
-              }).then((res) => console.log(res, "transaction done"));
+              }).then((res) => navigate("/transactions"));
             });
         } else {
           setShowApproveModal(true);
@@ -75,7 +77,7 @@ const MyWallet = () => {
                 isSendToDPN: false,
                 isEscrow: true,
                 isToken: false,
-              }).then((res) => console.log(res, "transaction done"));
+              }).then((res) => navigate("/transactions"));
             });
         } else {
           setShowApproveModal(true);
@@ -89,16 +91,18 @@ const MyWallet = () => {
 
   return (
     <S.MyWalletWrapper>
-      {cardState !== "SUCCESS" && <S.MainText>DPN: +01164504560</S.MainText>}
+      {cardState !== "SUCCESS" && (
+        <S.MainText>DPN: {userData?.user?.phoneNumber}</S.MainText>
+      )}
 
       {cardState === "INIT" && (
         <S.BtnWrapper>
           <S.SendBtn onClick={() => setCardState("SEND")}>
             <S.BtnIcon src={SendIcon} alt="" /> Send
           </S.SendBtn>
-          <S.SendBtn>
+          {/* <S.SendBtn>
             <S.BtnIcon src={ReceiveIcon} alt="" /> Request
-          </S.SendBtn>
+          </S.SendBtn> */}
         </S.BtnWrapper>
       )}
 
@@ -140,7 +144,7 @@ const MyWallet = () => {
               }}
             >
               <S.CustomTextField
-                placeholder="$0.00"
+                placeholder="0.00"
                 type="tel"
                 onChange={(e) => {
                   setCurrencyValue(e.target.value);
@@ -148,9 +152,7 @@ const MyWallet = () => {
                 }}
                 value={currencyValue}
               />
-              <S.InputSubText>0.00 ETH</S.InputSubText>
             </Box>
-            <img src={InterchangeArrow} alt="" />
           </S.InputContainer>
 
           <S.InputsContainer>
@@ -204,10 +206,6 @@ const MyWallet = () => {
           </S.InputsContainer>
 
           <S.SendFooter>
-            <S.PriceContainer>
-              <S.PriceText>Price : 1 ETH = $500</S.PriceText>
-              <S.PriceText>ETH available : 0.21 = $100</S.PriceText>
-            </S.PriceContainer>
             <S.ButtonsContainer>
               <S.CancelBtn>Cancel</S.CancelBtn>
               <S.SendSecondaryBtn onClick={() => handleSend()}>

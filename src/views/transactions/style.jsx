@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Input } from "@mui/material";
+import { Button, Input } from "@mui/material";
 import { Box } from "@mui/system";
 
 const TransactionsWrapper = styled(Box)(({ theme }) => ({
@@ -30,12 +30,32 @@ const ContactsInput = styled(Input)(({ theme }) => ({
 }));
 
 const AllTransactionsContainer = styled(Box)(({ theme }) => ({
-    
+  height: "100%",
+  minHeight: "25rem",
+  overflow: "auto",
 }));
+
+const Singletransaction = styled(Box)(({ theme }) => ({
+  padding: "1.5rem 0",
+  borderBottom: `1px solid #e2e2e2`,
+  cursor: "pointer",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  "&:hover": {
+    background: "#E1F8ED",
+  },
+}));
+
+const ClaimNowBtn = styled(Button)(({ theme }) => ({}));
+const TransactionWrapper = styled(Box)(({ theme }) => ({}));
 
 export const S = {
   TransactionsWrapper,
   TransactionsContainer,
   ContactsInput,
   AllTransactionsContainer,
+  Singletransaction,
+  ClaimNowBtn,
+  TransactionWrapper,
 };

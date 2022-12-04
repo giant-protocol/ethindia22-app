@@ -8,10 +8,12 @@ import IdeaIcon from "../../../assets/icons/Idea.svg";
 import { S } from "./style";
 import { Box } from "@mui/system";
 import ethindiaContractService from "../../../ethereum/contract/ethindiaContractService";
-import { toWei } from "../../../utils";
 import { createTransaction } from "../../../services/http/app.service";
+import { useNavigate } from "react-router-dom";
 
 const ApproveModal = () => {
+  const navigate = useNavigate();
+
   const {
     showApproveModal,
     setShowApproveModal,
@@ -46,7 +48,7 @@ const ApproveModal = () => {
               isSendToDPN: true,
               isEscrow: false,
               isToken: true,
-            }).then((res) => console.log(res, "transaction done"));
+            }).then((res) => navigate("/transactions"));
           });
       } else {
         ethindiaContractService
@@ -67,7 +69,7 @@ const ApproveModal = () => {
               isSendToDPN: false,
               isEscrow: true,
               isToken: true,
-            }).then((res) => console.log(res, "transaction done"));
+            }).then((res) => navigate("/transactions"));
           });
       }
     });

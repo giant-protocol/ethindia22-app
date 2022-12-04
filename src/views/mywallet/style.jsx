@@ -174,6 +174,14 @@ const DoneBtn = styled(Button)(({ theme }) => ({
 const SendSecondaryBtn = styled(CancelBtn)(({ theme }) => ({
   background: theme.palette.primary.main,
   color: theme.palette.common.white,
+  "&:hover": {
+    background: theme.palette.primary.main,
+    opacity: 0.75,
+  },
+  "&:disabled": {
+    background: "#C5C5C5",
+    color: theme.palette.primary.contrastText,
+  },
 }));
 
 const ContactsInput = styled(Input)(({ theme }) => ({

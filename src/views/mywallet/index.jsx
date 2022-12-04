@@ -207,7 +207,9 @@ const MyWallet = () => {
 
           <S.SendFooter>
             <S.ButtonsContainer>
-              <S.CancelBtn>Cancel</S.CancelBtn>
+              <S.CancelBtn onClick={() => setCardState("INIT")}>
+                Cancel
+              </S.CancelBtn>
               <S.SendSecondaryBtn onClick={() => handleSend()}>
                 Send
               </S.SendSecondaryBtn>

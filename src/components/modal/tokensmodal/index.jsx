@@ -56,7 +56,7 @@ const TokensModal = () => {
 
         <S.ContactListContainer>
           {userData?.balance?.map((asset, index) => {
-            let assetBalance = toWei(asset.balance);
+            // let assetBalance = toWei(asset.balance);
 
             return (
               <S.SingleContact
@@ -77,7 +77,7 @@ const TokensModal = () => {
                   <S.ContactNameText>{asset.contract_name}</S.ContactNameText>
                 </Box>
                 <S.ContactNumber>
-                  {assetBalance}&nbsp;{asset?.contract_ticker_symbol}
+                  {asset.balance}&nbsp;{asset?.contract_ticker_symbol}
                 </S.ContactNumber>
               </S.SingleContact>
             );

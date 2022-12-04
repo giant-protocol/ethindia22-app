@@ -131,7 +131,7 @@ const MyWallet = () => {
             <S.AssetsHeaderText>Assets</S.AssetsHeaderText>
           </S.AssetsHeader>
           {userData?.balance?.map((asset, index) => {
-            let assetBalance = toWei(asset.balance);
+            // let assetBalance = toWei(asset.balance);
             return (
               <S.AssetWrapper key={asset.id} id={asset.id}>
                 <Box
@@ -144,7 +144,7 @@ const MyWallet = () => {
                   />
                   {asset.name} {asset.contract_name}
                 </Box>
-                {assetBalance}&nbsp;{asset?.contract_ticker_symbol}
+                {asset.balance}&nbsp;{asset?.contract_ticker_symbol}
               </S.AssetWrapper>
             );
           })}

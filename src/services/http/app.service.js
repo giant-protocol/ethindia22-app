@@ -24,3 +24,10 @@ export const verifyOtp = async (phoneNumber, code, address) => {
   });
   return response;
 };
+
+export const checkIsRegistered = async (phoneNumber) => {
+  const response = await httpClient.post("/api/user/isRegister", {
+    phoneNumber: phoneNumber,
+  });
+  return response;
+};

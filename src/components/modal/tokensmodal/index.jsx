@@ -3,12 +3,18 @@ import React from "react";
 import { useAppContext } from "../../../context/app.context";
 import CloseIcon from "../../../assets/icons/CloseIcon.svg";
 import Searchicon from "../../../assets/icons/SearchIcon.svg";
+import Dpay from "../../../assets/icons/Dpay.svg";
 import { S } from "./style";
-import { ASSETS_LIST } from "../../../utils/constants";
 import { Box } from "@mui/system";
+import { toWei } from "../../../utils";
 
 const TokensModal = () => {
-  const { showTokensModal, setShowTokensModal } = useAppContext();
+  const {
+    showTokensModal,
+    setShowTokensModal,
+    userData,
+    setSelectedChainData,
+  } = useAppContext();
 
   const handleClose = () => {
     setShowTokensModal(false);
@@ -49,16 +55,30 @@ const TokensModal = () => {
         />
 
         <S.ContactListContainer>
-          {ASSETS_LIST.map((asset) => {
+          {userData?.balance?.map((asset, index) => {
+            let assetBalance = toWei(asset.balance);
+
             return (
-              <S.SingleContact key={asset.id}>
+              <S.SingleContact
+                key={asset.id}
+                onClick={async () => {
+                  await setSelectedChainData(asset);
+                  handleClose();
+                }}
+              >
                 <Box
                   sx={{ display: "flex", gap: "1rem", alignItems: "center" }}
                 >
-                  <img src={asset.icon} alt="" />
-                  <S.ContactNameText>{asset.name}</S.ContactNameText>
+                  <img
+                    src={index === 1 ? Dpay : asset.logo_url}
+                    alt=""
+                    style={{ height: "3rem" }}
+                  />
+                  <S.ContactNameText>{asset.contract_name}</S.ContactNameText>
                 </Box>
-                <S.ContactNumber>{asset.value}</S.ContactNumber>
+                <S.ContactNumber>
+                  {assetBalance}&nbsp;{asset?.contract_ticker_symbol}
+                </S.ContactNumber>
               </S.SingleContact>
             );
           })}

@@ -9,6 +9,11 @@ const initialState = {
   isRegistered: false,
   walletLoading: false,
   userData: [],
+  selectedChaindata: [],
+  userCurrencyvalue: "",
+  addressOfTheReceiver: "",
+  receiverRegisterd: "",
+  escrowSenderId: "",
   setActiveStep: () => {},
   setShowContactsModal: () => {},
   setShowTokensModal: () => {},
@@ -17,6 +22,11 @@ const initialState = {
   setIsRegistered: () => {},
   setWalletLoading: () => {},
   setUserData: () => {},
+  setSelectedChainData: () => {},
+  setUserCurrencyValue: () => {},
+  setAddressOfTheReceiver: () => {},
+  setReceiverRegistered: () => {},
+  setEscrowSenderId: () => {},
 };
 
 const reducer = (state, action) => {
@@ -37,6 +47,16 @@ const reducer = (state, action) => {
       return { ...state, walletLoading: action.payload };
     case "SET_USER_DATA":
       return { ...state, userData: action.payload };
+    case "SET_SELECTED_CHAIN_DATA":
+      return { ...state, selectedChaindata: action.payload };
+    case "SET_USER_CURRENCY_VALUE":
+      return { ...state, userCurrencyvalue: action.payload };
+    case "SET_ADDRESS_OF_THE_RECEIVER":
+      return { ...state, addressOfTheReceiver: action.payload };
+    case "SET_RECEIVER_REGISTERED":
+      return { ...state, receiverRegisterd: action.payload };
+    case "SET_ESCROW_SENDER_ID":
+      return { ...state, escrowSenderId: action.payload };
     default:
       return { ...state };
   }
@@ -77,6 +97,26 @@ function AppProvider(props) {
 
   state.setUserData = (data) => {
     dispatch({ type: "SET_USER_DATA", payload: data });
+  };
+
+  state.setSelectedChainData = (data) => {
+    dispatch({ type: "SET_SELECTED_CHAIN_DATA", payload: data });
+  };
+
+  state.setUserCurrencyValue = (data) => {
+    dispatch({ type: "SET_USER_CURRENCY_VALUE", payload: data });
+  };
+
+  state.setAddressOfTheReceiver = (data) => {
+    dispatch({ type: "SET_ADDRESS_OF_THE_RECEIVER", payload: data });
+  };
+
+  state.setReceiverRegistered = (data) => {
+    dispatch({ type: "SET_RECEIVER_REGISTERED", payload: data });
+  };
+
+  state.setEscrowSenderId = (data) => {
+    dispatch({ type: "SET_ESCROW_SENDER_ID", payload: data });
   };
 
   let data = { ...state };

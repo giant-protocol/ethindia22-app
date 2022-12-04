@@ -7,19 +7,54 @@ import InterchangeArrow from "../../assets/icons/InterchangeArrow.svg";
 import ContactIcon from "../../assets/icons/ContactsIcon.svg";
 import SuccessCheck from "../../assets/icons/SuccessCheck.svg";
 import Dpay from "../../assets/icons/Dpay.svg";
-import { InputAdornment } from "@mui/material";
+import { InputAdornment, Typography } from "@mui/material";
 import { useAppContext } from "../../context/app.context";
 import { toWei } from "../../utils";
+import ethindiaContractService from "../../ethereum/contract/ethindiaContractService";
+import { checkIsRegistered } from "../../services/http/app.service";
 const MyWallet = () => {
-  const { setShowContactsModal, setShowTokensModal, userData } =
-    useAppContext();
+  const {
+    setShowContactsModal,
+    setShowTokensModal,
+    userData,
+    selectedChaindata,
+    setShowApproveModal,
+    setUserCurrencyValue,
+    setAddressOfTheReceiver,
+    setReceiverRegistered,
+    setEscrowSenderId,
+  } = useAppContext();
   const [cardState, setCardState] = useState("INIT");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [currencyValue, setCurrencyValue] = useState("");
 
   const handleSend = () => {
-    setCardState("SUCCESS");
+    checkIsRegistered(phoneNumber).then((res) => {
+      setAddressOfTheReceiver(res.data.walletAddress);
+      if (res.status === true) {
+        if (selectedChaindata?.contract_ticker_symbol === "MATIC") {
+          ethindiaContractService
+            .sendFundToWallet(res.data.walletAddress, currencyValue)
+            .then((res) => console.log(res, "res"));
+        } else {
+          setShowApproveModal(true);
+          setReceiverRegistered(true);
+        }
+      } else {
+        if (selectedChaindata?.contract_ticker_symbol === "MATIC") {
+          ethindiaContractService
+            .sendFundToEscrow(userData?.user?.userId, currencyValue, res.data)
+            .then((res) => console.log(res, "res"));
+        } else {
+          setShowApproveModal(true);
+          setReceiverRegistered(false);
+          setEscrowSenderId(res.data);
+        }
+      }
+    });
+    // setCardState("SUCCESS");
   };
 
-  console.log(userData, "userData");
   return (
     <S.MyWalletWrapper>
       {cardState !== "SUCCESS" && <S.MainText>DPN: +01164504560</S.MainText>}
@@ -72,7 +107,15 @@ const MyWallet = () => {
                 alignItems: "center",
               }}
             >
-              <S.CustomTextField placeholder="$0.00" type="tel" />
+              <S.CustomTextField
+                placeholder="$0.00"
+                type="tel"
+                onChange={(e) => {
+                  setCurrencyValue(e.target.value);
+                  setUserCurrencyValue(e.target.value);
+                }}
+                value={currencyValue}
+              />
               <S.InputSubText>0.00 ETH</S.InputSubText>
             </Box>
             <img src={InterchangeArrow} alt="" />
@@ -85,6 +128,8 @@ const MyWallet = () => {
                 type="text"
                 placeholder="Enter phone number or wallet address"
                 disableUnderline={true}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                value={phoneNumber}
                 endAdornment={
                   <InputAdornment
                     sx={{ cursor: "pointer" }}
@@ -98,16 +143,22 @@ const MyWallet = () => {
             </S.InputWrapper>
             <S.InputWrapper>
               Currency:&nbsp;
-              {/* <S.CustomInput
-                type="text"
-                placeholder="Enter phone number or wallet address"
-                disableUnderline={true}
-              /> */}
               <Box
-                sx={{ cursor: "pointer" }}
+                sx={{ cursor: "pointer", padding: "0 1rem" }}
                 onClick={() => setShowTokensModal(true)}
               >
-                Etherum
+                {selectedChaindata.length === 0 ? (
+                  "Select the Currency"
+                ) : (
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <img
+                      src={selectedChaindata?.logo_url}
+                      style={{ height: "2rem" }}
+                      alt=""
+                    />
+                    <Typography>{selectedChaindata?.contract_name}</Typography>
+                  </Box>
+                )}
               </Box>
             </S.InputWrapper>
             <S.InputWrapper>

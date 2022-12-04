@@ -2,19 +2,49 @@ import { Modal } from "@mui/material";
 import React from "react";
 import { useAppContext } from "../../../context/app.context";
 import CloseIcon from "../../../assets/icons/CloseIcon.svg";
-import DaiRoundIcon from "../../../assets/icons/DaiRoundIcon.svg";
 import AlertIcon from "../../../assets/icons/AlertIcon.svg";
 import IdeaIcon from "../../../assets/icons/Idea.svg";
 
 import { S } from "./style";
 import { Box } from "@mui/system";
+import ethindiaContractService from "../../../ethereum/contract/ethindiaContractService";
+import { toWei } from "../../../utils";
 
 const ApproveModal = () => {
-  const { showApproveModal, setShowApproveModal, approveModalType } =
-    useAppContext();
+  const {
+    showApproveModal,
+    setShowApproveModal,
+    approveModalType,
+    selectedChaindata,
+    userCurrencyvalue,
+    addressOfTheReceiver,
+    receiverRegisterd,
+    escrowSenderId,
+    userData,
+  } = useAppContext();
 
   const handleClose = () => {
     setShowApproveModal(false);
+  };
+
+  const handleApprove = () => {
+    ethindiaContractService.Approve().then((res) => {
+      if (receiverRegisterd) {
+        ethindiaContractService
+          .sendTokenToWallet(addressOfTheReceiver, userCurrencyvalue)
+          .then((res) => {
+            console.log(res);
+          });
+      } else {
+        ethindiaContractService
+          .sendTokenToEscrow(
+            userData?.user?.userId,
+            escrowSenderId,
+            userCurrencyvalue
+          )
+          .then((res) => console.log(res));
+      }
+    });
   };
 
   return (
@@ -26,7 +56,9 @@ const ApproveModal = () => {
     >
       <S.ApproveModalContainer>
         <S.ApproveModalHeader>
-          {approveModalType === "approve" ? "Approve DAI" : "Send money "}
+          {approveModalType === "approve"
+            ? `Approve ${selectedChaindata?.contract_name}`
+            : "Send money "}
           <img
             src={CloseIcon}
             style={{
@@ -41,13 +73,13 @@ const ApproveModal = () => {
         </S.ApproveModalHeader>
         {approveModalType === "approve" && (
           <S.ApproveModalBody sx={{ padding: "1rem 0" }}>
-            <img src={DaiRoundIcon} alt="" />
+            <img src={selectedChaindata?.logo_url} alt="" />
             <S.ApproveText>
               Please approve PESA in <br />
-              DAI for transactions.{" "}
+              {selectedChaindata?.contract_name} for transactions.{" "}
               <S.LearnMoreText>Learn more</S.LearnMoreText>
             </S.ApproveText>
-            <S.ApproveBtn>Approve</S.ApproveBtn>
+            <S.ApproveBtn onClick={() => handleApprove()}>Approve</S.ApproveBtn>
           </S.ApproveModalBody>
         )}
 

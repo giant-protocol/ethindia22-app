@@ -31,3 +31,11 @@ export const checkIsRegistered = async (phoneNumber) => {
   });
   return response;
 };
+
+export const createTransaction = async (data) => {
+  const response = await httpClient.post(
+    "/api/paymentGateway/createTransaction",
+    data
+  );
+  return response;
+};

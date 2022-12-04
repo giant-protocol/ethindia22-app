@@ -14,6 +14,7 @@ const initialState = {
   addressOfTheReceiver: "",
   receiverRegisterd: "",
   escrowSenderId: "",
+  idOfTheReceiver: "",
   setActiveStep: () => {},
   setShowContactsModal: () => {},
   setShowTokensModal: () => {},
@@ -27,6 +28,7 @@ const initialState = {
   setAddressOfTheReceiver: () => {},
   setReceiverRegistered: () => {},
   setEscrowSenderId: () => {},
+  setIdOfTheReceiver: () => {},
 };
 
 const reducer = (state, action) => {
@@ -57,6 +59,8 @@ const reducer = (state, action) => {
       return { ...state, receiverRegisterd: action.payload };
     case "SET_ESCROW_SENDER_ID":
       return { ...state, escrowSenderId: action.payload };
+    case "SET_ID_OF_THE_RECEIVER":
+      return { ...state, idOfTheReceiver: action.payload };
     default:
       return { ...state };
   }
@@ -117,6 +121,10 @@ function AppProvider(props) {
 
   state.setEscrowSenderId = (data) => {
     dispatch({ type: "SET_ESCROW_SENDER_ID", payload: data });
+  };
+
+  state.setIdOfTheReceiver = (data) => {
+    dispatch({ type: "SET_ID_OF_THE_RECEIVER", payload: data });
   };
 
   let data = { ...state };

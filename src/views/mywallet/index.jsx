@@ -11,7 +11,10 @@ import { InputAdornment, Typography } from "@mui/material";
 import { useAppContext } from "../../context/app.context";
 import { toWei } from "../../utils";
 import ethindiaContractService from "../../ethereum/contract/ethindiaContractService";
-import { checkIsRegistered } from "../../services/http/app.service";
+import {
+  checkIsRegistered,
+  createTransaction,
+} from "../../services/http/app.service";
 const MyWallet = () => {
   const {
     setShowContactsModal,
@@ -23,6 +26,7 @@ const MyWallet = () => {
     setAddressOfTheReceiver,
     setReceiverRegistered,
     setEscrowSenderId,
+    setIdOfTheReceiver,
   } = useAppContext();
   const [cardState, setCardState] = useState("INIT");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -30,21 +34,49 @@ const MyWallet = () => {
 
   const handleSend = () => {
     checkIsRegistered(phoneNumber).then((res) => {
-      setAddressOfTheReceiver(res.data.walletAddress);
+      setAddressOfTheReceiver(res?.data?.walletAddress);
+      setIdOfTheReceiver(res?.data?.userId);
       if (res.status === true) {
         if (selectedChaindata?.contract_ticker_symbol === "MATIC") {
           ethindiaContractService
             .sendFundToWallet(res.data.walletAddress, currencyValue)
-            .then((res) => console.log(res, "res"));
+            .then((tx) => {
+              createTransaction({
+                from: userData?.user?.userId,
+                type: "sent",
+                status: "success",
+                txHash: tx?.hash,
+                to: res.data.userId,
+                cryptoSymbol: "MATIC",
+                amount: currencyValue,
+                isSendToDPN: true,
+                isEscrow: false,
+                isToken: false,
+              }).then((res) => console.log(res, "transaction done"));
+            });
         } else {
           setShowApproveModal(true);
           setReceiverRegistered(true);
         }
       } else {
         if (selectedChaindata?.contract_ticker_symbol === "MATIC") {
+          setIdOfTheReceiver(res?.data);
           ethindiaContractService
             .sendFundToEscrow(userData?.user?.userId, currencyValue, res.data)
-            .then((res) => console.log(res, "res"));
+            .then((tx) => {
+              createTransaction({
+                from: userData?.user?.userId,
+                type: "sent",
+                status: "success",
+                txHash: tx?.hash,
+                to: res.data,
+                cryptoSymbol: "MATIC",
+                amount: currencyValue,
+                isSendToDPN: false,
+                isEscrow: true,
+                isToken: false,
+              }).then((res) => console.log(res, "transaction done"));
+            });
         } else {
           setShowApproveModal(true);
           setReceiverRegistered(false);

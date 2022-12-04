@@ -9,6 +9,7 @@ import { S } from "./style";
 import { Box } from "@mui/system";
 import ethindiaContractService from "../../../ethereum/contract/ethindiaContractService";
 import { toWei } from "../../../utils";
+import { createTransaction } from "../../../services/http/app.service";
 
 const ApproveModal = () => {
   const {
@@ -21,6 +22,7 @@ const ApproveModal = () => {
     receiverRegisterd,
     escrowSenderId,
     userData,
+    idOfTheReceiver,
   } = useAppContext();
 
   const handleClose = () => {
@@ -32,8 +34,19 @@ const ApproveModal = () => {
       if (receiverRegisterd) {
         ethindiaContractService
           .sendTokenToWallet(addressOfTheReceiver, userCurrencyvalue)
-          .then((res) => {
-            console.log(res);
+          .then((tx) => {
+            createTransaction({
+              from: userData?.user?.userId,
+              type: "sent",
+              status: "success",
+              txHash: tx?.hash,
+              to: idOfTheReceiver,
+              cryptoSymbol: "LINK",
+              amount: userCurrencyvalue,
+              isSendToDPN: true,
+              isEscrow: false,
+              isToken: true,
+            }).then((res) => console.log(res, "transaction done"));
           });
       } else {
         ethindiaContractService
@@ -42,7 +55,20 @@ const ApproveModal = () => {
             escrowSenderId,
             userCurrencyvalue
           )
-          .then((res) => console.log(res));
+          .then((tx) => {
+            createTransaction({
+              from: userData?.user?.userId,
+              type: "sent",
+              status: "success",
+              txHash: tx?.hash,
+              to: idOfTheReceiver,
+              cryptoSymbol: "LINK",
+              amount: userCurrencyvalue,
+              isSendToDPN: false,
+              isEscrow: true,
+              isToken: true,
+            }).then((res) => console.log(res, "transaction done"));
+          });
       }
     });
   };

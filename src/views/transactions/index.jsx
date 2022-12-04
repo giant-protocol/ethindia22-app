@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { S } from "./style";
 import Searchicon from "../../assets/icons/SearchIcon.svg";
-import { getTransactions } from "../../services/http/app.service";
+import { getClaim, getTransactions } from "../../services/http/app.service";
 import { useWeb3React } from "@web3-react/core";
 import moment from "moment";
 
@@ -178,7 +178,15 @@ const Transactions = () => {
                     <S.TransactionWrapper>
                       {transaction?.createdOn}
                     </S.TransactionWrapper>
-                    <S.ClaimNowBtn>Claim now</S.ClaimNowBtn>
+                    <S.ClaimNowBtn
+                      onClick={() =>
+                        getClaim(transaction?.txHash).then((res) =>
+                          window.location.reload()
+                        )
+                      }
+                    >
+                      Claim now
+                    </S.ClaimNowBtn>
                   </S.Singletransaction>
                 );
               })}

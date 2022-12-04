@@ -49,3 +49,10 @@ export const getTransactions = async (address) => {
   );
   return response;
 };
+
+export const getClaim = async (txHash) => {
+  const response = await httpClient.post("/api/paymentGateway/claim", {
+    txHash: txHash,
+  });
+  return response;
+};
